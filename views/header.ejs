@@ -56,7 +56,9 @@
         <div class="row align-items-center">
           <div class="col-lg-3">
             <div class="brand-wrap">
-              <img class="logo" src="/images/logo.png" alt="DevShop">
+              <a href="/">
+                <img class="logo" src="/images/logo.png" alt="DevShop">
+              </a>
             </div> <!-- brand-wrap.// -->
           </div>
           <div class="col-lg-6 col-sm-6">
@@ -130,7 +132,7 @@
 
           <% categories.forEach(category => { %>
             <li class="nav-item">
-              <a class="nav-link" href="/categoria/<%- category.id %>"><%- category.category %></a>
+              <a class="nav-link" href="/categoria/<%- category.id %>/<%- category.slug %>"><%- category.category %></a>
             </li>
           <% }) %>
           </ul>

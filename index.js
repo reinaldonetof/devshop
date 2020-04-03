@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
+const slug = require('./utils/slug')
 
 const db = require('knex')({
   client: 'mysql2',
@@ -21,22 +22,38 @@ app.use(express.static("public"));
 
 app.get('/', async (req,res) => {
   const categories = await db('categories').select('*')
+  const categoriesWithSlug = categories.map( category => {
+    const newCategory = { ...category, slug: slug(category.category)}
+    return newCategory
+  })
   res.render('home', {
-    categories
+    categories: categoriesWithSlug
   })
 })
 
-app.get('/categoria/:id', async (req, res) => {
+app.get('/categoria/:id/:slug', async (req, res) => {
   const categories = await db('categories').select('*')
+  
   const products = await db('products').select('*').where('id', function() {
     this.select("categories_products.product_id")
       .from("categories_products")
       .whereRaw("categories_products.product_id = products.id")
       .where("category_id", req.params.id);
   })
-  res.render('category', {
+  
+  const categoriesWithSlug = categories.map( category => {
+    const newCategory = { ...category, slug: slug(category.category)}
+    return newCategory
+  })
+  
+  const category = await db("categories")
+    .select("*")
+    .where("id", req.params.id);
+  
+    res.render('category', {
     products,
-    categories
+    categories: categoriesWithSlug,
+    category
   })
 })
 
