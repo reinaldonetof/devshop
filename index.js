@@ -5,6 +5,11 @@ const port = process.env.PORT || 3000;
 const category = require("./models/category");
 const product = require("./models/product");
 
+const home = require('./controllers/home')
+
+const categories = require('./routes/categories')
+const products = require('./routes/products')
+
 const db = require("knex")({
   client: "mysql2",
   connection: {
@@ -32,27 +37,10 @@ app.use(async (req,res, next) => {
 })
 
 
-app.get("/", async (req, res) => {
-  res.render("home", {
-  });
-});
+app.get("/", home.getIndex);
 
-app.get("/categoria/:id/:slug", async (req, res) => {
-  const products = await product.getProductsByCategoryId(db)(req.params.id);
-  const categoryById = await category.getCategoryById(db)(req.params.id);
-
-  res.render("category", {
-    products,
-    category: categoryById,
-  });
-});
-
-app.get("/produto/:id/:slug", async (req, res) => {
-  const productId = await product.getProductById(db)(req.params.id)
-  res.render("product-detail", {
-    product: productId,
-  });
-})
+app.use(categories(db))
+app.use(products(db))
 
 app.listen(port, (err) => {
   if (err) {
