@@ -115,6 +115,43 @@
                   </a>
                 </div>
                 <!-- widget .// -->
+                <% if(user) { %>
+                <div class="widget-header dropdown">
+                  <a
+                    href="#"
+                    class="ml-3 icontext"
+                    data-toggle="dropdown"
+                    data-offset="20,10"
+                  >
+                    <div class="icon-wrap icon-xs bg2 round text-secondary">
+                      <i class="fa fa-user"></i>
+                    </div>
+                    <div class="text-wrap">
+                      <small>Hello.</small>
+                      <span>
+                        <%- user.name %> <i class="fa fa-caret-down"> </i>
+                      </span>
+                    </div>
+                  </a>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <% if(user.roles.indexOf('customer') >= 0) { %>
+                    <a class="dropdown-item" href="#">Minha conta</a>
+                    <a class="dropdown-item" href="#">Meus pedidos</a>
+                    <% } %> <% if(user.roles.indexOf('admin') >= 0) { %>
+                    <hr class="dropdown-divider" />
+                    <a class="dropdown-item" href="#">Painel administrativo</a>
+                    <% } %> <% if(user.roles.indexOf('financial') >= 0) { %>
+                    <hr class="dropdown-divider" />
+                    <a class="dropdown-item" href="#">Painel financeiro</a>
+                    <% } %>
+                    <hr class="dropdown-divider" />
+                    <a class="dropdown-item" href="/logout">Sair</a>
+                  </div>
+                </div>
+                <% } else { %>
                 <div class="widget-header dropdown">
                   <a
                     href="#"
@@ -161,6 +198,7 @@
                   <!--  dropdown-menu .// -->
                 </div>
                 <!-- widget  dropdown.// -->
+                <% } %>
               </div>
               <!-- widgets-wrap.// -->
             </div>

@@ -12,11 +12,11 @@ const initialUser = (db) => async (id) => {
     const user = {
       name: "Admin",
       email: "admin@devshop.com.br",
-      passwd: generatePassHash("senha123!"),
+      passwd: generatePassHash("1234"),
       email_checked: true,
       created: new Date(),
       updated: new Date(),
-      roles: "admin, financial, costumer",
+      roles: "admin, financial, customer",
     };
     await db("users").insert(user);
   }
@@ -31,7 +31,7 @@ const login = (db) => async (email, passwd) => {
   if (!bcrypt.compareSync(passwd, user[0].passwd)) {
     throw new Error("Invalid password");
   }
-  return user;
+  return user[0];
 };
 
 module.exports = {

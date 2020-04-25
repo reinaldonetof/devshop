@@ -9,6 +9,7 @@ const init = (db) => {
 
   router.get("/", home.getIndex);
   router.post("/login", auth.login(db));
+  router.get("/logout", auth.logout);
   router.use("/categoria", categories(db));
   router.use("/produto", products(db));
 
