@@ -5,6 +5,9 @@ const init = (db) => {
   const category = require("./models/category");
   const routes = require("./routes");
 
+  app.use(express.json({ extended: true }));
+  app.use(express.urlencoded());
+
   app.set("view engine", "ejs");
   app.use(express.static("public"));
 
