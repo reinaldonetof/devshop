@@ -1,4 +1,5 @@
 const init = (db) => {
+  const session = require("express-session");
   const express = require("express");
   const app = express();
 
@@ -11,11 +12,19 @@ const init = (db) => {
   app.set("view engine", "ejs");
   app.use(express.static("public"));
 
+  app.use(
+    session({
+      secret: "DevShop",
+      name: "sessionId",
+    })
+  );
   //Middleware
   app.use(async (req, res, next) => {
     const categories = await category.getCategories(db)();
+    const { user } = req.session;
     res.locals = {
       categories,
+      user,
     };
     next();
   });
