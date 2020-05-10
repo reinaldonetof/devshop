@@ -1,0 +1,47 @@
+<%- include ('../header')  %>
+<section class="section-pagetop bg-primary">
+  <div class="container clearfix">
+    <h2 class="title-page">Admin</h2>
+
+    <nav class="float-left">
+      <ol class="breadcrumb text-white">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+      </ol>
+    </nav>
+  </div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION INTRO END// ========================= -->
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content bg padding-y">
+  <div class="container">
+
+    <div class="row">
+      <!-- col.// -->
+      <main class="col-sm-12">
+
+        <% categories.forEach( category => { %>
+
+        <article class="card card-product">
+          <div class="card-body">
+            <div class="row">
+              <article class="col-sm-6">
+                <h4 class="title"> <%- category.category %> </h4>
+                <p> <%- category.description %> </p>
+              </article> <!-- col.// -->
+              <aside class="col-sm-3 border-left">
+                  <p>
+                    <a href="#" class="btn btn-primary"> Buy now </a>
+                    <a href="/produto/<%- category.id%>/slug" class="btn btn-secondary"> Details </a>
+                  </p>
+              </aside> <!-- col.// -->
+            </div> <!-- row.// -->
+          </div> <!-- card-body .// -->
+        </article> <!-- card product .// -->
+        <% }) %>
+
+    </div> <!-- container .//  -->
+</section>
+
+
+<%- include ('../../footer')  %>
