@@ -25,14 +25,14 @@
         <article class="card card-product">
           <div class="card-body">
             <div class="row">
-              <article class="col-sm-6">
+              <article class="col-sm-9">
                 <h4 class="title"> <%- category.category %> </h4>
                 <p> <%- category.description %> </p>
               </article> <!-- col.// -->
               <aside class="col-sm-3 border-left">
                   <p>
-                    <a href="#" class="btn btn-primary"> Buy now </a>
-                    <a href="/produto/<%- category.id%>/slug" class="btn btn-secondary"> Details </a>
+                    <a href="/admin/categorias/editar/<%- category.id%>" class="btn btn-primary"> Editar </a>
+                    <a href="/admin/categorias/excluir/<%- category.id%>" class="btn btn-secondary"> Excluir </a>
                   </p>
               </aside> <!-- col.// -->
             </div> <!-- row.// -->
