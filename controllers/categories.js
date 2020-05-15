@@ -18,7 +18,16 @@ const adminGetCategories = (db) => async (req, res) => {
   });
 };
 
+const adminCreateCategory = (db) => async (req, res) => {
+  if (req.method === "GET") {
+    res.render("admin/categories/create");
+  } else {
+    res.send(req.body);
+  }
+};
+
 module.exports = {
   getCategories,
   adminGetCategories,
+  adminCreateCategory,
 };
