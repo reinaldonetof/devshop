@@ -24,8 +24,13 @@ const adminCreateCategory = (db) => async (req, res) => {
   } else {
     try {
       await category.createCateogry(db)(req.body);
-      res.redirect("/");
-    } catch (err) {}
+      res.redirect("/admin/categorias");
+    } catch (err) {
+      res.render("admin/categories/create", {
+        form: req.body,
+        errors: errors.fields,
+      });
+    }
   }
 };
 
