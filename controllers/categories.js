@@ -37,8 +37,34 @@ const adminCreateCategory = (db) => async (req, res) => {
   }
 };
 
+const adminRemoveCategory = (db) => async (req, res) => {
+  await category.removeCategory(db)(req.params.id);
+  res.redirect("/admin/categorias");
+};
+
+const adminUpdateCategory = (db) => async (req, res) => {
+  if (req.method === "GET") {
+    res.render("admin/categories/update", {
+      form: {},
+      errors: [],
+    });
+  } else {
+    try {
+      await category.createCateogry(db)(req.body);
+      res.redirect("/admin/categorias");
+    } catch (err) {
+      res.render("admin/categories/update", {
+        form: req.body,
+        errors: err.errors.fields,
+      });
+    }
+  }
+};
+
 module.exports = {
   getCategories,
   adminGetCategories,
   adminCreateCategory,
+  adminRemoveCategory,
+  adminUpdateCategory,
 };

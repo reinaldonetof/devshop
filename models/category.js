@@ -27,8 +27,12 @@ const createCateogry = (db) => async (category) => {
   return true;
 };
 
+const removeCategory = (db) => async (id) => {
+  await db("categories").where({ id }).del();
+};
 module.exports = {
   getCategories,
   getCategoryById,
   createCateogry,
+  removeCategory,
 };
