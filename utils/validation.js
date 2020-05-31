@@ -20,8 +20,8 @@ const ValidationError = (message, errors) => ({
   errors,
 });
 
-const validate = (object, schema) => {
-  const { error, value } = Joi.valid(object, schema, {
+const validation = (object, schema) => {
+  const { error, value } = schema.validate(object, {
     abortEarly: false,
     stripUnknown: true,
   });
@@ -33,5 +33,5 @@ const validate = (object, schema) => {
 };
 
 module.exports = {
-  validate,
+  validation,
 };

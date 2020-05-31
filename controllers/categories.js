@@ -20,7 +20,10 @@ const adminGetCategories = (db) => async (req, res) => {
 
 const adminCreateCategory = (db) => async (req, res) => {
   if (req.method === "GET") {
-    res.render("admin/categories/create");
+    res.render("admin/categories/create", {
+      form: {},
+      errors: [],
+    });
   } else {
     try {
       await category.createCateogry(db)(req.body);
@@ -28,7 +31,7 @@ const adminCreateCategory = (db) => async (req, res) => {
     } catch (err) {
       res.render("admin/categories/create", {
         form: req.body,
-        errors: errors.fields,
+        errors: err.errors.fields,
       });
     }
   }
