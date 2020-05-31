@@ -22,8 +22,10 @@ const adminCreateCategory = (db) => async (req, res) => {
   if (req.method === "GET") {
     res.render("admin/categories/create");
   } else {
-    await category.createCateogry(req.body);
-    res.redirect("/");
+    try {
+      await category.createCateogry(db)(req.body);
+      res.redirect("/");
+    } catch (err) {}
   }
 };
 
