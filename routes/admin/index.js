@@ -4,17 +4,17 @@ const init = (db) => {
 
   const router = require("express").Router();
 
-  router.use((req, res, next) => {
-    if (req.session.user) {
-      if (req.session.user.roles.indexOf("admin") < 0) {
-        res.redirect("/");
-      } else {
-        next();
-      }
-    } else {
-      res.redirect("/login");
-    }
-  });
+  // router.use((req, res, next) => {
+  //   if (req.session.user) {
+  //     if (req.session.user.roles.indexOf("admin") < 0) {
+  //       res.redirect("/");
+  //     } else {
+  //       next();
+  //     }
+  //   } else {
+  //     res.redirect("/login");
+  //   }
+  // });
 
   router.get("/", (req, res) => res.render("admin/index"));
   router.use("/categorias", categories(db));

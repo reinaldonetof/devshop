@@ -27,6 +27,12 @@ const createCateogry = (db) => async (category) => {
   return true;
 };
 
+const updateCategory = (db) => async (id, category) => {
+  const value = validation.validation(category, createSchema);
+  await db("categories").where({ id }).update(value);
+  return true;
+};
+
 const removeCategory = (db) => async (id) => {
   await db("categories").where({ id }).del();
 };
@@ -35,4 +41,5 @@ module.exports = {
   getCategoryById,
   createCateogry,
   removeCategory,
+  updateCategory,
 };

@@ -44,13 +44,14 @@ const adminRemoveCategory = (db) => async (req, res) => {
 
 const adminUpdateCategory = (db) => async (req, res) => {
   if (req.method === "GET") {
+    const cat = await category.getCategoryById(db)(req.params.id);
     res.render("admin/categories/update", {
-      form: {},
+      form: cat[0],
       errors: [],
     });
   } else {
     try {
-      await category.createCateogry(db)(req.body);
+      await category.updateCategory(db)(req.params.id, req.body);
       res.redirect("/admin/categorias");
     } catch (err) {
       res.render("admin/categories/update", {

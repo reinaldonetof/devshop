@@ -7,8 +7,8 @@ const init = (db) => {
   router.get("/nova", categories.adminCreateCategory(db));
   router.post("/nova", categories.adminCreateCategory(db));
 
-  router.get("/editar", categories.adminUpdateCategory(db));
-  router.post("/editar", categories.adminUpdateCategory(db));
+  router.get("/editar/:id", categories.adminUpdateCategory(db));
+  router.post("/editar/:id", categories.adminUpdateCategory(db));
 
   router.get("/excluir/:id", categories.adminRemoveCategory(db));
   return router;
