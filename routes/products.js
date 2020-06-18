@@ -1,10 +1,10 @@
-const init = db => {
-  const router = require('express').Router()
-  const products = require('../controllers/products')
+const init = (db) => {
+  const router = require("express").Router();
+  const products = require("../controllers/products")(db);
 
-  router.get("/:id/:slug", products.getProducts(db) )
+  router.get("/:id/:slug", products.getProducts);
 
-  return router
-}
+  return router;
+};
 
-module.exports = init
+module.exports = init;
