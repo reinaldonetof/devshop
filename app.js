@@ -3,7 +3,7 @@ const init = (db) => {
   const express = require("express");
   const app = express();
 
-  const category = require("./models/category");
+  const category = require("./models/category")(db);
   const routes = require("./routes");
 
   app.use(express.json());
@@ -20,7 +20,7 @@ const init = (db) => {
   );
   //Middleware
   app.use(async (req, res, next) => {
-    const categories = await category.getCategories(db)();
+    const categories = await category.getCategories();
     const { user } = req.session;
     res.locals = {
       categories,

@@ -3,8 +3,8 @@ const init = (db) => {
   const product = require("../models/product")(db);
 
   const getCategories = async (req, res) => {
-    const products = await product.getProductsByCategoryId(db)(req.params.id);
-    const categoryById = await category.getCategoryById(db)(req.params.id);
+    const products = await product.getProductsByCategoryId(req.params.id);
+    const categoryById = await category.getCategoryById(req.params.id);
 
     res.render("category", {
       products,
@@ -13,7 +13,7 @@ const init = (db) => {
   };
 
   const adminGetCategories = async (req, res) => {
-    const categories = await category.getCategories(db)();
+    const categories = await category.getCategories();
     res.render("admin/categories/index", {
       categories,
     });
@@ -27,7 +27,7 @@ const init = (db) => {
       });
     } else {
       try {
-        await category.createCateogry(db)(req.body);
+        await category.createCateogry(req.body);
         res.redirect("/admin/categorias");
       } catch (err) {
         res.render("admin/categories/create", {
@@ -39,20 +39,20 @@ const init = (db) => {
   };
 
   const adminRemoveCategory = async (req, res) => {
-    await category.removeCategory(db)(req.params.id);
+    await category.removeCategory(req.params.id);
     res.redirect("/admin/categorias");
   };
 
   const adminUpdateCategory = async (req, res) => {
     if (req.method === "GET") {
-      const cat = await category.getCategoryById(db)(req.params.id);
+      const cat = await category.getCategoryById(req.params.id);
       res.render("admin/categories/update", {
         form: cat[0],
         errors: [],
       });
     } else {
       try {
-        await category.updateCategory(db)(req.params.id, req.body);
+        await category.updateCategory(req.params.id, req.body);
         res.redirect("/admin/categorias");
       } catch (err) {
         res.render("admin/categories/update", {
