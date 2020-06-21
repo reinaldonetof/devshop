@@ -3,7 +3,10 @@ const init = (db) => {
   const product = require("../models/product")(db);
 
   const getCategories = async (req, res) => {
-    const products = await product.getProductsByCategoryId(req.params.id);
+    const products = await product.getProductsByCategoryId(
+      req.params.id,
+      req.query
+    );
     const categoryById = await category.getCategoryById(req.params.id);
 
     res.render("category", {
