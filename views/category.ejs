@@ -22,7 +22,7 @@
       <!-- col.// -->
       <main class="col-sm-12">
 
-        <% products.forEach( product => { %>
+        <% products.data.forEach( product => { %>
 
         <article class="card card-product">
           <div class="card-body">
@@ -82,6 +82,21 @@
           </div> <!-- card-body .// -->
         </article> <!-- card product .// -->
         <% }) %>
+
+        <nav aria-label="Mais produtos">
+          <ul class="pagination justify-content-center">
+            <% if(products.pagination.currentPage>0) {%>
+            <li class="page-item"><a class="page-link" href="?pageSize=<%-products.pagination.pageSize%>&currentPage=<%- products.pagination.currentPage - 1 %>">Anterior</a></li>
+            <% } %>
+            <% for(let i = 0; i<products.pagination.totalPages; i++) { %>
+            <li class="page-item <% if(products.pagination.currentPage === i) { %> active <% } %>"><a class="page-link" href="?pageSize=<%-products.pagination.pageSize%>&currentPage=<%-i%>"><%= i+1 %> </a></li>
+            <%}%>
+            <% if(products.pagination.totalPages -1 > products.pagination.currentPage) {%>
+            <li class="page-item"><a class="page-link" href="?pageSize=<%-products.pagination.pageSize%>&currentPage=<%- products.pagination.currentPage + 1 %>">Próxima</a></li>
+            <% } %>
+          </ul>
+        </nav>
+
 
     </div> <!-- container .//  -->
 </section>

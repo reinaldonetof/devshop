@@ -19,7 +19,13 @@ const init = (db) => {
           .where("category_id", id);
       })
       .first();
+
     pagination.total = productsCount.total;
+    const totalPages = productsCount.total / pagination.pageSize;
+    pagination.totalPages = Number.isInteger(totalPages)
+      ? totalPages
+      : parseInt(totalPages) + 1;
+
     const products = await db("products")
       .select("*")
       .whereIn("id", function () {
